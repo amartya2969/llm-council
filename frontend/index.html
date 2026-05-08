@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LLM Council</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+<div id="app">
+
+  <!-- ── Header ── -->
+  <header>
+    <div class="header-logo">
+      <div class="logo-icon">⚖️</div>
+      <h1>LLM Council</h1>
+    </div>
+    <p class="subtitle">Multi-model deliberation · Peer review · Chairman synthesis</p>
+    <button id="btn-settings" class="btn-outline">⚙ Settings</button>
+  </header>
+
+  <!-- ── Settings Modal ── -->
+  <div id="modal-overlay" class="hidden">
+    <div id="modal">
+      <div class="modal-header">
+        <h2>Settings</h2>
+      </div>
+      <div class="modal-body">
+
+        <section>
+          <div class="modal-section-title">API Keys</div>
+
+          <div class="key-row">
+            <div class="key-row-label">
+              <span>Anthropic</span>
+              <span class="key-status missing" id="status-anthropic">not set</span>
+            </div>
+            <input type="password" id="key-anthropic" placeholder="sk-ant-..." />
+          </div>
+
+          <div class="key-row">
+            <div class="key-row-label">
+              <span>OpenAI</span>
+              <span class="key-status missing" id="status-openai">not set</span>
+            </div>
+            <input type="password" id="key-openai" placeholder="sk-..." />
+          </div>
+
+          <div class="key-row">
+            <div class="key-row-label">
+              <span>Gemini</span>
+              <span class="key-status missing" id="status-gemini">not set</span>
+            </div>
+            <input type="password" id="key-gemini" placeholder="AIza..." />
+          </div>
+
+          <div style="margin-top:0.5rem">
+            <button id="btn-save-keys" class="btn-primary">Save Keys</button>
+          </div>
+        </section>
+
+        <section>
+          <div class="modal-section-title">Chairman</div>
+          <p class="hint" style="margin-bottom:0.85rem">
+            The Chairman synthesizes all responses in Stage 3. Can be any model.
+          </p>
+          <select id="chairman-select"></select>
+        </section>
+
+        <section>
+          <div class="modal-section-title">Council Members</div>
+          <p class="hint" style="margin-bottom:0.85rem">
+            Council members answer independently in Stage 1 and peer-review in Stage 2.
+          </p>
+          <div id="model-checkboxes"></div>
+        </section>
+
+      </div>
+      <div class="modal-footer">
+        <button id="btn-close-modal" class="btn-outline">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Query form ── -->
+  <main>
+    <div id="query-section">
+      <div class="query-label">Your question or strategy</div>
+      <textarea
+        id="query-input"
+        rows="4"
+        placeholder="Ask a question, or describe a strategy / solution you want the council to evaluate and challenge…"
+      ></textarea>
+      <div class="query-controls">
+        <span class="shortcut-hint"><kbd>⌘</kbd><kbd>↵</kbd> to run</span>
+        <div style="display:flex;align-items:center;gap:0.85rem">
+          <span id="model-count-label" class="hint"></span>
+          <button id="btn-run" class="btn-primary">Convene Council ▶</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Loading ── -->
+    <div id="loading" class="hidden">
+      <div class="dots-container">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <p id="loading-label">Stage 1 · Gathering individual responses…</p>
+      <div class="loading-stages">
+        <div class="loading-stage active" id="pip-1">
+          <div class="stage-pip"></div>
+          <span class="stage-pip-label">Responses</span>
+        </div>
+        <div class="loading-stage" id="pip-2">
+          <div class="stage-pip"></div>
+          <span class="stage-pip-label">Peer Review</span>
+        </div>
+        <div class="loading-stage" id="pip-3">
+          <div class="stage-pip"></div>
+          <span class="stage-pip-label">Chairman</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Results ── -->
+    <div id="results" class="hidden">
+      <div class="tabs-wrapper">
+        <div class="tabs">
+          <button class="tab active" data-stage="stage1">Stage 1 · Responses</button>
+          <button class="tab" data-stage="stage2">Stage 2 · Peer Reviews</button>
+          <button class="tab" data-stage="chairman">⚖️ Chairman</button>
+        </div>
+        <span class="results-meta" id="results-meta"></span>
+      </div>
+
+      <div id="stage1" class="stage-panel">
+        <div id="stage1-cards" class="cards"></div>
+      </div>
+
+      <div id="stage2" class="stage-panel hidden">
+        <div id="stage2-cards" class="cards"></div>
+      </div>
+
+      <div id="chairman" class="stage-panel hidden">
+        <div id="chairman-content"></div>
+      </div>
+    </div>
+  </main>
+
+</div>
+<script src="/static/app.js?v=3"></script>
+</body>
+</html>
