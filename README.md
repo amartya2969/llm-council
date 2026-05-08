@@ -1,6 +1,5 @@
 # ⚖️ LLM Council
 
-A multi-model deliberation tool inspired by [Andrej Karpathy's llm-council](https://github.com/karpathy/llm-council).
 
 Instead of asking one model a question, you convene a **council** of models that answer independently, peer-review each other, and have a chosen **Chairman** synthesize a final verdict.
 
