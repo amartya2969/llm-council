@@ -3,7 +3,9 @@
 
 Instead of asking one model a question, you convene a **council** of models that answer independently, peer-review each other, and have a chosen **Chairman** synthesize a final verdict.
 
-![LLM Council UI](https://i.imgur.com/placeholder.png)
+![LLM Council — main UI](docs/screenshot-main.png)
+
+![LLM Council — settings panel](docs/screenshot-settings.png)
 
 ---
 
